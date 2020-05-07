@@ -1,12 +1,8 @@
 version: "2.3"
 services:
   keycloak:
+    container_name: keycloak
     image: jboss/keycloak:latest
-    command: ["-b", "0.0.0.0", "-Dkeycloak.migration.action=import",
-     "-Dkeycloak.migration.provider=dir",
-      "-Dkeycloak.migration.dir=/opt/jboss/keycloak/realm-config",
-       "-Dkeycloak.migration.strategy=IGNORE_EXISTING",
-        "-Djboss.socket.binding.port-offset=1000"]
     volumes:
       - ./realm-config:/opt/jboss/keycloak/realm-config
       - ./keycloak-db:/opt/jboss/keycloak/standalone/data
@@ -15,6 +11,4 @@ services:
       - KEYCLOAK_PASSWORD=pass
       - DB_VENDOR=h2
     ports:
-      - 9080:9080
-      - 9443:9443
-      - 10990:10990
+      - 8080:8080
